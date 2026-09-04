@@ -1,0 +1,8 @@
+{
+  "name": "shopcloud-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ShopCloud online shopping architecture and commerce domain portfolio project",
+  "scripts": {"test": "node --test test/*.test.js"},
+  "engines": {"node": ">=20"}
+}
