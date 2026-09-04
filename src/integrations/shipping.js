@@ -1,0 +1,2 @@
+async function createShippingLabel({orderId,carrier,address,apiKey,endpoint='https://api.goshippo.com/shipments/',fetchImpl=fetch}){if(!orderId||!carrier||!apiKey)throw new Error('orderId, carrier and apiKey are required');const r=await fetchImpl(endpoint,{method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json'},body:JSON.stringify({order_id:orderId,carrier,address})});if(!r.ok)throw new Error(`Shipping request failed: ${r.status}`);return r.json();}
+module.exports={createShippingLabel};
