@@ -1,0 +1,4 @@
+const crypto=require('node:crypto');
+function createIdempotencyKey(value){if(!value||String(value).length<16)throw new Error('Idempotency key must be at least 16 characters');return crypto.createHash('sha256').update(String(value)).digest('hex');}
+async function reserveStock({key,sku,quantity,repository}){if(!sku||!Number.isInteger(quantity)||quantity<=0)throw new Error('sku and positive quantity are required');const idempotencyKey=createIdempotencyKey(key);const existing=await repository.findReservation(idempotencyKey);if(existing)return existing;return repository.reserve({idempotencyKey,sku,quantity});}
+module.exports={createIdempotencyKey,reserveStock};
