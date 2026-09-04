@@ -1,8 +1,7 @@
 {
-  "name": "shopcloud-portfolio",
-  "version": "1.0.0",
-  "private": true,
-  "description": "ShopCloud online shopping architecture and commerce domain portfolio project",
-  "scripts": {"test": "node --test test/*.test.js"},
-  "engines": {"node": ">=20"}
+  "name":"shopcloud-portfolio","version":"2.0.0","private":true,
+  "description":"ShopCloud production-ready commerce platform reference implementation",
+  "scripts":{"test":"node --test test/*.test.js","check":"node --check src/config.js && node --check src/services/inventory.js && node --check src/integrations/stripe.js && node --check src/integrations/shipping.js"},
+  "engines":{"node":">=20"},
+  "dependencies":{"firebase-admin":"^13.6.0"}
 }
