@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS products (id uuid PRIMARY KEY, sku text NOT NULL UNIQUE, name text NOT NULL, price_cents integer NOT NULL CHECK(price_cents>=0), active boolean NOT NULL DEFAULT true, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS inventory (sku text PRIMARY KEY REFERENCES products(sku), available integer NOT NULL CHECK(available>=0), reserved integer NOT NULL DEFAULT 0 CHECK(reserved>=0), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS orders (id uuid PRIMARY KEY, customer_id uuid NOT NULL, status text NOT NULL CHECK(status IN ('PENDING','PAYMENT_PENDING','PAID','FULFILLING','SHIPPED','DELIVERED','CANCELLED','REFUNDED')), total_cents integer NOT NULL CHECK(total_cents>=0), idempotency_key text NOT NULL UNIQUE, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX IF NOT EXISTS orders_customer_status_idx ON orders(customer_id,status);
